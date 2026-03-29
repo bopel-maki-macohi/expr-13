@@ -20,13 +20,25 @@ class PlayState extends FlxState
 		waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
 		add(waterPools);
 
-		var i = seedManager.int(4, 16);
+		generateWaterpools();
+	}
 
-		trace('Waterpools: $i');
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
 
-        var a = 0;
+		FlxG.watch.addQuick('Seed', seedManager.currentSeed);
+	}
 
-		while (i > 0)
+	public function generateWaterpools()
+	{
+		var waterpoolCount = seedManager.int(4, 16);
+
+		trace('Waterpools: $waterpoolCount');
+
+		var attemptNumber = 0;
+
+		while (waterpoolCount > 0)
 		{
 			final size = (seedManager.int() % 64) + 32;
 
@@ -47,7 +59,7 @@ class PlayState extends FlxState
 					cont = false;
 			}
 
-            a++;
+			attemptNumber++;
 			if (!cont)
 				continue;
 
@@ -57,17 +69,10 @@ class PlayState extends FlxState
 				size: size,
 				x: x,
 				y: y,
-                attempt: a,
+				attempt: attemptNumber,
 			});
 
-			i--;
+			waterpoolCount--;
 		}
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		FlxG.watch.addQuick('Seed', seedManager.currentSeed);
 	}
 }
