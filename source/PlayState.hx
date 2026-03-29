@@ -1,3 +1,4 @@
+import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.FlxState;
@@ -17,7 +18,9 @@ class PlayState extends FlxState
         waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
         add(waterPools);
 
-        var i = seedManager.randomAbsInt() % 7 + 1;
+        var i = (FlxMath.absInt(seedManager.randomInt()) % 7) + 1;
+
+        trace('Waterpools: $i');
 
         while (i > 0)
         {
