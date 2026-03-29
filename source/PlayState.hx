@@ -1,3 +1,4 @@
+import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
@@ -5,7 +6,7 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
-    public var seedManager:SeedManager;
+    public var seedManager:FlxRandom;
 
     public var waterPools:FlxTypedSpriteGroup<ButtonSprite>;
 
@@ -13,24 +14,24 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-        seedManager = new SeedManager(0);
+        seedManager = new FlxRandom(0);
 
         waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
         add(waterPools);
 
-        var i = (FlxMath.absInt(seedManager.randomInt()) % 7) + 1;
+        var i = (FlxMath.absInt(seedManager.int()) % 7) + 1;
 
         trace('Waterpools: $i');
 
         while (i > 0)
         {
-            var size = (seedManager.randomInt() % 512) + 32;
+            var size = (seedManager.int() % 512) + 32;
 
             var x = 0.0;
             var y = 0.0;
 
-            x = seedManager.randomFloat() % FlxG.width - size;
-            y = seedManager.randomFloat() % FlxG.height - size;
+            x = seedManager.float() % FlxG.width - size;
+            y = seedManager.float() % FlxG.height - size;
 
             trace('waterpool: ' + {
                 size: size,
