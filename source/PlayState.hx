@@ -1,3 +1,4 @@
+import flixel.util.FlxColor;
 import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
 import flixel.FlxG;
@@ -6,47 +7,70 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
-    public var seedManager:FlxRandom;
+	public var seedManager:FlxRandom;
 
-    public var waterPools:FlxTypedSpriteGroup<ButtonSprite>;
+	public var waterPools:FlxTypedSpriteGroup<ButtonSprite>;
 
 	override function create()
 	{
 		super.create();
 
-        seedManager = new FlxRandom(0);
+		seedManager = new FlxRandom(0);
 
-        waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
-        add(waterPools);
+		waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
+		add(waterPools);
 
-        var i = (FlxMath.absInt(seedManager.int()) % 7) + 1;
+		var i = seedManager.int(4, 16);
 
-        trace('Waterpools: $i');
+		trace('Waterpools: $i');
 
-        while (i > 0)
-        {
-            var size = (seedManager.int() % 64) + 32;
+        var a = 0;
 
-            var x = 0.0;
-            var y = 0.0;
+		while (i > 0)
+		{
+			var size = (seedManager.int() % 64) + 32;
 
-            x = seedManager.float() % FlxG.width - size;
-            y = seedManager.float() % FlxG.height - size;
+			var x = 0.0;
+			var y = 0.0;
 
-            trace('waterpool: ' + {
-                size: size,
-                x: x,
-                y: y,
-            });
+			x = seedManager.float(0, FlxG.width - size);
+			y = seedManager.float(0, FlxG.height - size);
 
-            i--;
-        }
+			var waterpool = new ButtonSprite(x, y);
+			waterpool.makeGraphic(size, size, FlxColor.CYAN);
+
+			var cont = true;
+
+			for (wp in waterPools.members)
+			{
+				if (!cont)
+					continue;
+
+				if (waterpool.overlaps(wp))
+					cont = false;
+			}
+
+            a++;
+			if (!cont)
+				continue;
+
+			waterPools.add(waterpool);
+
+			trace('waterpool: ' + {
+				size: size,
+				x: x,
+				y: y,
+                attempt: a,
+			});
+
+			i--;
+		}
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-        FlxG.watch.addQuick('Seed', seedManager.currentSeed);
+		FlxG.watch.addQuick('Seed', seedManager.currentSeed);
 	}
 }
