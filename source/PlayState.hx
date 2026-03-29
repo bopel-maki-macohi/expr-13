@@ -37,6 +37,7 @@ class PlayState extends FlxState
 		trace('Waterpools: $waterpoolCount');
 
 		var attemptNumber = 0;
+		var maxDifference:Float = 25.0;
 
 		while (waterpoolCount > 0)
 		{
@@ -57,9 +58,19 @@ class PlayState extends FlxState
 
 				if (waterpool.overlaps(wp))
 					cont = false;
+
+				var xdiff = wp.x - waterpool.x;
+				var ydiff = wp.y - waterpool.y;
+
+				if (xdiff < (maxDifference + (size * 1 / 20)) || ydiff < (maxDifference + (size * 1 / 20)))
+					cont = false;
 			}
 
 			attemptNumber++;
+
+			if (!cont && (attemptNumber > 1000 * waterpoolCount || FlxG.random.bool(5)))
+                cont = true;
+
 			if (!cont)
 				continue;
 
