@@ -28,13 +28,10 @@ class PlayState extends FlxState
 
 		while (i > 0)
 		{
-			var size = (seedManager.int() % 64) + 32;
+			final size = (seedManager.int() % 64) + 32;
 
-			var x = 0.0;
-			var y = 0.0;
-
-			x = seedManager.float(0, FlxG.width - size);
-			y = seedManager.float(0, FlxG.height - size);
+			final x = seedManager.float(0, FlxG.width - size);
+			final y = seedManager.float(0, FlxG.height - size);
 
 			var waterpool = new ButtonSprite(x, y);
 			waterpool.makeGraphic(size, size, FlxColor.CYAN);
@@ -56,7 +53,7 @@ class PlayState extends FlxState
 
 			waterPools.add(waterpool);
 
-			trace('waterpool: ' + {
+			trace('Waterpool spawn: ' + {
 				size: size,
 				x: x,
 				y: y,
