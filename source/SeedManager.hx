@@ -16,15 +16,37 @@ class SeedManager
 
 		seed *= time_Y;
 
-        if (seed % 512 == 0) seed = time_M;
+		if (seed % 512 == 0)
+			seed = time_M;
 
-        trace('New seed: $seed');
+		trace('New float seed: $seed');
 		return seed;
 	}
 
 	public function randomInt():Int
 	{
-		return Math.round(randomFloat());
+		final i = Math.round(randomFloat());
+
+		trace('New int seed: $i');
+		return i;
+	}
+
+	public function randomAbsFloat():Float
+	{
+        var af = Math.abs(randomFloat());
+        if (af < 0) af = -af;
+
+		trace('New abs float seed: $af');
+		return af;
+	}
+
+	public function randomAbsInt():Int
+	{
+        var ai = Math.round(Math.abs(randomInt()));
+        if (ai < 0) ai = -ai;
+
+		trace('New abs int seed: $ai');
+		return ai;
 	}
 
 	public function new(initalSeed:Float = 0)

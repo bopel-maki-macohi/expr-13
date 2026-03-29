@@ -17,7 +17,7 @@ class PlayState extends FlxState
         waterPools = new FlxTypedSpriteGroup<ButtonSprite>();
         add(waterPools);
 
-        var i = seedManager.randomInt() % 10;
+        var i = seedManager.randomAbsInt() % 7 + 1;
 
         while (i > 0)
         {
