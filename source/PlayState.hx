@@ -25,7 +25,7 @@ class PlayState extends FlxState
 
         while (i > 0)
         {
-            var size = (seedManager.int() % 512) + 32;
+            var size = (seedManager.int() % 64) + 32;
 
             var x = 0.0;
             var y = 0.0;
