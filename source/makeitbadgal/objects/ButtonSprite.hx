@@ -1,4 +1,4 @@
-package source.makeitbadgal.objects;
+package makeitbadgal.objects;
 
 import flixel.FlxG;
 import flixel.util.FlxSignal;
