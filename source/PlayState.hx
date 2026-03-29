@@ -47,6 +47,6 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-        FlxG.watch.addQuick('Seed', seedManager.seed);
+        FlxG.watch.addQuick('Seed', seedManager.currentSeed);
 	}
 }
